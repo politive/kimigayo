@@ -11,7 +11,12 @@ if ! command -v mpg123 >/dev/null; then
   exit 1
 fi
 
-MP3_PATH="$(dirname "$0")/../mp3/kimigayo.mp3"
+if [[ -f "${HOMEBREW_PREFIX}/share/kimigayo/mp3/kimigayo.mp3" ]]; then
+  MP3_PATH="${HOMEBREW_PREFIX}/share/kimigayo/mp3/kimigayo.mp3"
+else
+  MP3_PATH="$(dirname "$0")/../mp3/kimigayo.mp3"
+fi
+
 LYRICS="
   ┌─────────────────────────────┐
   │    苔  巌  さ  千  君  🇯🇵   │

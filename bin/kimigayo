@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if ! command -v mpg123 >/dev/null; then
+  echo ""
+  echo "⚠️  'mpg123' is required to play the anthem."
+  echo "   It seems to be missing from your system."
+  echo ""
+  echo "🛠  Install it using Homebrew:"
+  echo "   brew install mpg123"
+  echo ""
+  exit 1
+fi
+
+MP3_PATH="$(dirname "$0")/../mp3/kimigayo.mp3"
+LYRICS="
+  ┌─────────────────────────────┐
+  │    苔  巌  さ  千  君  🇯🇵   │
+  │    の  と  ざ  代  が       │
+  │    む  な  れ  に  代       │
+  │    す  り  石  八  は       │
+  │    ま  て  の  千           │
+  │    で          代           │
+  │                に           │
+  └─────────────────────────────┘
+"
+
+# Clear screen and hide cursor
+clear
+tput civis
+
+# Display the lyrics (vertical-style layout)
+echo -e "$LYRICS"
+
+# Play the anthem (suppress all mpg123 output)
+mpg123 "$MP3_PATH" >/dev/null 2>&1
+
+# Clear screen and restore cursor
+clear
+tput cnorm

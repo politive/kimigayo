@@ -17,6 +17,24 @@ else
   MP3_PATH="$(dirname "$0")/../mp3/kimigayo.mp3"
 fi
 
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+  cat <<EOF
+kimigayo - A minimal CLI to play the Japanese national anthem 🇯🇵
+
+Usage:
+  kimigayo [--no-flag] [--help|-h]
+
+Options:
+  --no-flag     Disable the 🇯🇵 flag in lyrics display (for non-monospaced fonts)
+  --help, -h    Show this help message
+
+Note:
+  Make sure 'mpg123' is installed. Install it via Homebrew if missing:
+    brew install mpg123
+EOF
+  exit 0
+fi
+
 # set FLAG_MODE
 FLAG_MODE=true
 [ "$1" = "--no-flag" ] && FLAG_MODE=false

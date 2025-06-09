@@ -1,37 +1,57 @@
 #!/bin/bash
 
-if ! command -v mpg123 >/dev/null; then
+# Default player
+PLAYER="afplay"
+
+# --player option support
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --player)
+      shift
+      if [[ -z "$1" ]]; then
+        echo "Error: --player option requires an argument."
+        exit 1
+      fi
+      PLAYER="$1"
+      shift
+      ;;
+    --help|-h)
+      cat <<EOF
+kimigayo - A minimal CLI to play the Japanese national anthem
+
+Usage:
+  kimigayo [--player <command>] [--help|-h]
+
+Options:
+  --player <command>  Specify audio player command (default: afplay)
+  --help, -h          Show this help message
+
+Note:
+  The specified player command must be available on your system.
+  On macOS, 'afplay' is available by default.
+EOF
+      exit 0
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+# Check if player command exists
+if ! command -v "$PLAYER" >/dev/null; then
   echo ""
-  echo "⚠️  'mpg123' is required to play the anthem."
+  echo "⚠️  '$PLAYER' is required to play the anthem."
   echo "   It seems to be missing from your system."
-  echo ""
-  echo "🛠  Install it using Homebrew:"
-  echo "   brew install mpg123"
   echo ""
   exit 1
 fi
 
+# Set MP3 path
 if [[ -f "${HOMEBREW_PREFIX}/share/kimigayo/mp3/kimigayo.mp3" ]]; then
   MP3_PATH="${HOMEBREW_PREFIX}/share/kimigayo/mp3/kimigayo.mp3"
 else
   MP3_PATH="$(dirname "$0")/../mp3/kimigayo.mp3"
-fi
-
-if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-  cat <<EOF
-kimigayo - A minimal CLI to play the Japanese national anthem
-
-Usage:
-  kimigayo [--help|-h]
-
-Options:
-  --help, -h    Show this help message
-
-Note:
-  'mpg123' is required. If not installed, use:
-    brew install mpg123
-EOF
-  exit 0
 fi
 
 LYRICS="
@@ -76,8 +96,8 @@ tput civis
 # Display the lyrics (vertical-style layout)
 echo -e "$LYRICS"
 
-# Play the anthem (suppress all mpg123 output)
-mpg123 "$MP3_PATH" >/dev/null 2>&1
+# Play the anthem (suppress all player output)
+"$PLAYER" "$MP3_PATH" >/dev/null 2>&1
 
 # Clear screen and restore cursor
 clear

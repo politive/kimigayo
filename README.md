@@ -18,15 +18,15 @@
 ### macOS (via Homebrew)
 
 ```sh
-brew tap yourname/kimigayo
+brew tap politive/kimigayo
 brew install kimigayo
 ```
 
 ```sh
-kimigayo             # Display lyrics (with 🇯🇵) and play the anthem
-kimigayo --no-flag   # Disable the flag symbol (for better alignment in non-monospaced terminals)
-kimigayo --help      # Show usage instructions
+kimigayo                   # Display lyrics and play the anthem (uses afplay by default)
+kimigayo --player mpg123   # Use a custom player command (e.g., mpg123)
+kimigayo --help            # Show usage instructions
 ```
 
 ## output
-<img width="256" alt="output" src="https://github.com/user-attachments/assets/ae35746f-d646-4fb4-9002-e08febc40070" />
+<img width="256" alt="output" src="capture.png" />

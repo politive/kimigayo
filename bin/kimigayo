@@ -19,46 +19,54 @@ fi
 
 if [[ "$1" == "--help" || "$1" == "-h" ]]; then
   cat <<EOF
-kimigayo - A minimal CLI to play the Japanese national anthem 🇯🇵
+kimigayo - A minimal CLI to play the Japanese national anthem
 
 Usage:
-  kimigayo [--no-flag] [--help|-h]
+  kimigayo [--help|-h]
 
 Options:
-  --no-flag     Disable the 🇯🇵 flag in lyrics display (for non-monospaced fonts)
   --help, -h    Show this help message
 
 Note:
-  Make sure 'mpg123' is installed. Install it via Homebrew if missing:
+  'mpg123' is required. If not installed, use:
     brew install mpg123
 EOF
   exit 0
 fi
 
-# set FLAG_MODE
-FLAG_MODE=true
-[ "$1" = "--no-flag" ] && FLAG_MODE=false
-
-if [ "$FLAG_MODE" = true ]; then
-  FLAG="🇯🇵"
-  FLAG_LINE="──"
-  FLAG_SPACE="  "
-else
-  FLAG=""
-  FLAG_LINE=""
-  FLAG_SPACE=""
-fi
-
 LYRICS="
-  ┌────────────────────────"$FLAG_LINE"───┐
-  │    苔  巌  さ  千  君  $FLAG   │
-  │    の  と  ざ  代  が  "$FLAG_SPACE"   │
-  │    む  な  れ  に  代  "$FLAG_SPACE"   │
-  │    す  り  石  八  は  "$FLAG_SPACE"   │
-  │    ま  て  の  千      "$FLAG_SPACE"   │
-  │    で          代      "$FLAG_SPACE"   │
-  │                に      "$FLAG_SPACE"   │
-  └────────────────────────"$FLAG_LINE"───┘
+  ┌──────────────────────────────┐
+  │                              │
+  │    苔  巌  さ  千  君        │
+  │    の  と  ざ  代  が  国    │
+  │    む  な  れ  に  代  歌    │
+  │    す  り  石  八  は        │
+  │    ま  て  の  千            │
+  │    で          代            │
+  │                に            │
+  │                              │
+  ├─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤
+  │                              │
+  │    苔  大  小  千  天        │
+  │    が  き  さ  年  皇  現    │
+  │    つ  な  な  ・  陛  代    │
+  │    く  岩  石  八  下  語    │
+  │    ま  に  が  千  が  訳    │
+  │    で  な      年  生        │
+  │        っ      と  き        │
+  │        て      長  て        │
+  │                く  ら        │
+  │                続  っ        │
+  │                き  し        │
+  │                ま  ゃ        │
+  │                す  る        │
+  │                よ  こ        │
+  │                う  の        │
+  │                に  時        │
+  │                    代        │
+  │                    が        │
+  │                              │
+  └──────────────────────────────┘
 "
 
 # Clear screen and hide cursor
